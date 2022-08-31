@@ -5,11 +5,12 @@ from .models import CBUData
 class CBUDataSerializer(serializers.ModelSerializer):
     reach = serializers.ListField(
         child=serializers.FloatField(
-            min_value=0, 
-            max_value=100
+            min_value=0.0, 
+            max_value=100.0
         ),
-        min_length=2,
-        max_length=2
+        allow_empty=False,
+        min_length=10,
+        max_length=10
     )
 
     def __init__(self, *args, **kwargs):
@@ -28,11 +29,3 @@ class CBUDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = CBUData
         fields = ['unit','reach']
-
-"""
-{
-"user_table":1,
-"unit":1,
-"reach":[1,2]
-}
-"""
