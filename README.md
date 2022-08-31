@@ -70,5 +70,37 @@ POST http://localhost:8000/curve/
 ```
 GET http://localhost:8000/curve/
 ```
+## Ошибки
+### Если больше или меньше 10 элементов в массиве
+```
+"reach": [
+            "Ensure this field has no more than 10 elements."
+        ]
+```
+```
+"reach": [
+            "Ensure this field has at least 10 elements."
+        ]
+```
+### Если отправить строку 
+
+```
+"A valid number is required."
+```
+### Если число больше 100 или меньше нуля
+```
+"Ensure this value is less than or equal to 100."
+```
+```
+"Ensure this value is greater than or equal to 0."
+```
+### Если массив не отсортирован
+```
+"reach": [
+            "The array must be sorted in descending order"
+        ]
+```
+
+
 
 
