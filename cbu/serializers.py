@@ -4,9 +4,7 @@ from .models import CBUData
 
 class CBUDataSerializer(serializers.ModelSerializer):
     reach = serializers.ListField(
-        child=serializers.DecimalField(
-            max_digits=5, 
-            decimal_places=2, 
+        child=serializers.FloatField(
             min_value=0, 
             max_value=100
         ),
@@ -17,6 +15,15 @@ class CBUDataSerializer(serializers.ModelSerializer):
     def __init__(self, *args, **kwargs):
         many = kwargs.pop('many', True)
         super(CBUDataSerializer, self).__init__(many=many, *args, **kwargs)
+    
+    def validate_reach(self, value):    
+        print(value)
+        for idx in range(len(value)-1):
+            if value[idx] < value[idx+1]:
+                raise serializers.ValidationError(
+                    "The array must be sorted in descending order"
+                )
+        return value
 
     class Meta:
         model = CBUData

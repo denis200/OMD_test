@@ -1,7 +1,6 @@
-from rest_framework import views, viewsets, response, permissions, status
+from rest_framework import viewsets, response, permissions, status
 
 from .models import CBUData, UserTable
-
 from .serializers import CBUDataSerializer
 
 
@@ -17,10 +16,9 @@ class SaveCBUDataView(viewsets.ModelViewSet):
         return response.Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     def get_queryset(self):
-        return CBUData.objects.all()
+        return CBUData.objects.filter(user_table__user = self.request.user)
         
     def perform_create(self, serializer):
-        print(self.__dict__)
         serializer.save(user_table=UserTable.objects.get(user = self.request.user))
 
 
